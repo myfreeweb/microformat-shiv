@@ -1,7 +1,7 @@
 /*
-   microformat-shiv - v2.0.2
-   Built: 2016-10-26 10:10 - http://microformat-shiv.com
-   Copyright (c) 2016 Glenn Jones
+   microformat-shiv - v2.0.3
+   Built: 2017-05-01 05:05 - http://microformat-shiv.com
+   Copyright (c) 2017 Glenn Jones
    Licensed MIT 
 */
 
@@ -21,7 +21,7 @@ var Microformats; // jshint ignore:line
     var modules = {};
     
 
-	modules.version = '2.0.2';
+	modules.version = '2.0.3';
 	modules.livingStandard = '2016-05-25T09:22:18Z';
 
 	/**
@@ -355,6 +355,9 @@ var Microformats; // jshint ignore:line
 				newRootNode;
 
 			path = modules.domUtils.getNodePath(this.rootNode);
+			path.shift();
+			path.unshift(2);
+			path.unshift(1);
 			newDocument = modules.domUtils.cloneDocument(this.document);
 			newRootNode = modules.domUtils.getNodeByPath(newDocument, path);
 
@@ -2949,7 +2952,8 @@ var Microformats; // jshint ignore:line
 			if( this.canCloneDocument( document )){
 				newDocument = document.implementation.createHTMLDocument('');
 				newNode = newDocument.importNode( document.documentElement, true );
-				newDocument.replaceChild(newNode, newDocument.querySelector('html'));
+				newDocument.documentElement.appendChild(newNode);
+				//newDocument.replaceChild(newNode, newDocument.querySelector('html'));
 			}
 			return (newNode && newNode.nodeType && newNode.nodeType === 1)? newDocument : document;
 		},
